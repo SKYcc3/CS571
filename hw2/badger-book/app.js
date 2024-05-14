@@ -78,8 +78,10 @@ function handleSearch(e) {
 	e?.preventDefault(); // You can ignore this; prevents the default form submission!
 
 	//get input terms
-	const searchname = document.getElementById("search-name").value;
-	const searchmajor = document.getElementById("search-major").value;
+	const name = document.getElementById("search-name").value;
+	const major = document.getElementById("search-major").value;
+	const interest = document.getElementById("search-interest").value;
+
 	
 
 
