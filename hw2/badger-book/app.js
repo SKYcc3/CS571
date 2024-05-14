@@ -63,11 +63,7 @@ fetch("https://cs571.org/api/s24/hw2/students", {
 		interestItem.innerText = data[i].interests[j];
 		ulInterestsHTML.appendChild(interestItem);
 	}
-
 }
-
-	
-
 
 })
   .catch(error => console.error('Error fetching student data:', error));
@@ -81,6 +77,12 @@ fetch("https://cs571.org/api/s24/hw2/students", {
 function handleSearch(e) {
 	e?.preventDefault(); // You can ignore this; prevents the default form submission!
 
-	// TODO Implement the search
+	//get input terms
+	const searchname = document.getElementById("search-name").value;
+	const searchmajor = document.getElementById("search-major").value;
+	
+
+
+
 }
 
