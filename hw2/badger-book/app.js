@@ -82,7 +82,14 @@ function handleSearch(e) {
 	const major = document.getElementById("search-major").value;
 	const interest = document.getElementById("search-interest").value;
 
-	
+	//perform match
+	const matchStudents = data.filter(s => {
+		const fullName =  `${s.first} ${s.last}`.toLowerCase();
+		const nameMatch = name ? fullName.includes(name) : true; 
+		const majorMatch = major ? data.major.toLowerCase().includes(major) : true;
+		const interestMatch = interest ? data.interests.some(int => int.toLowerCase().includes(interest)) : true;
+		return nameMatch && majorMatch && interestMatch;
+	});
 
 
 
