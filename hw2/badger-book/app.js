@@ -86,8 +86,8 @@ function handleSearch(e) {
 	const matchStudents = data.filter(s => {
 		const fullName =  `${s.first} ${s.last}`.toLowerCase();
 		const nameMatch = name ? fullName.includes(name) : true; 
-		const majorMatch = major ? data.major.toLowerCase().includes(major) : true;
-		const interestMatch = interest ? data.interests.some(int => int.toLowerCase().includes(interest)) : true;
+		const majorMatch = major ? s.major.toLowerCase().includes(major) : true;
+		const interestMatch = interest ? s.interests.some(int => int.toLowerCase().includes(interest)) : true;
 		return nameMatch && majorMatch && interestMatch;
 	});
 
