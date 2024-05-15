@@ -2,11 +2,16 @@ document.getElementById("search-btn").addEventListener("click", handleSearch);
 
 
 //step 6
-const interestItemAnchorHTML = document.getElementsByClassName("interestItem");
-for (let i = 0; i < interestItemAnchorHTML.length; i++) {
-	interestItemAnchorHTML[i].addEventListener("click", (e) => {
+	const interestItemAnchorHTML = document.getElementsByClassName("container-fluid")[0];
+	
+	interestItemAnchorHTML.addEventListener("click", (e) => {
+		const selectedText = e.target.innerText;
+		searchbar = document.getElementById("search-interest");
+		button = document.getElementById("search-btn");
+		
+		searchbar.value = selectedText;
+		button.click();
 })
-}
 
 fetch("https://cs571.org/api/s24/hw2/students", {
 	headers: {
