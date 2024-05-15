@@ -1,5 +1,13 @@
 document.getElementById("search-btn").addEventListener("click", handleSearch);
 
+
+//step 6
+const interestItemAnchorHTML = document.getElementsByClassName("interestItem");
+for (let i = 0; i < interestItemAnchorHTML.length; i++) {
+	interestItemAnchorHTML[i].addEventListener("click", (e) => {
+})
+}
+
 fetch("https://cs571.org/api/s24/hw2/students", {
 	headers: {
 		"X-CS571-ID": CS571.getBadgerId()
@@ -21,53 +29,11 @@ fetch("https://cs571.org/api/s24/hw2/students", {
 	}
 
 	//step3
-	for (let i = 0; i < data.length; i++) {
-		
-	const row = document.getElementById("students")
-
-	let divHTML = document.createElement('div');
-	row.appendChild(divHTML);
-	divHTML.className = "col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3";
-	
-	let nameHTML = document.createElement('h2');
-	let majorHTML = document.createElement('h5');
-	let numCreditsHTML = document.createElement('p');
-	let interestsHTML = document.createElement('p');
-	let ulInterestsHTML = document.createElement('ul');
-
-	let brHTML = document.createElement('br');
-
-	divHTML.appendChild(nameHTML);
-	divHTML.appendChild(majorHTML);
-	divHTML.appendChild(numCreditsHTML);
-	divHTML.appendChild(interestsHTML);
-	divHTML.appendChild(ulInterestsHTML);
-
-	divHTML.appendChild(brHTML);
-
-	//get data
-	let firstName = data[i].name.first;
-	let lastName = data[i].name.last; 
-	nameHTML.innerText = firstName + ' ' + lastName;
-
-	majorHTML.innerText = data[i].major;
-
-	let numCredits = data[i].numCredits;
-	numCreditsHTML.innerText = firstName + ' is taking ' + numCredits + 'credits an is ' + '' + 'from Wisconsin.' ;
-	
-	let numInterests = data[i].interests.length;
-	interestsHTML.innerText = 'They have ' + numInterests + ' interests including...'
-
-	for ( j = 0; j < numInterests; j++) {
-		let interestItem = document.createElement("li");
-		interestItem.innerText = data[i].interests[j];
-		ulInterestsHTML.appendChild(interestItem);
-	}
-}
-
+	buildStudents(data);
 })
   .catch(error => console.error('Error fetching student data:', error));
 
+  
   function buildStudents(data) {
 	// TODO This function is just a suggestion! I would suggest calling it after
 	//      fetching the data or performing a search. It should populate the
@@ -93,6 +59,7 @@ fetch("https://cs571.org/api/s24/hw2/students", {
 		divHTML.appendChild(numCreditsHTML);
 		divHTML.appendChild(interestsHTML);
 		divHTML.appendChild(ulInterestsHTML);
+		
 	
 		divHTML.appendChild(brHTML);
 	
@@ -104,14 +71,20 @@ fetch("https://cs571.org/api/s24/hw2/students", {
 		majorHTML.innerText = data[i].major;
 	
 		let numCredits = data[i].numCredits;
-		numCreditsHTML.innerText = firstName + ' is taking ' + numCredits + 'credits an is ' + '' + 'from Wisconsin.' ;
+		numCreditsHTML.innerText = firstName + ' is taking ' + numCredits + ' credits an is ' + '' + 'from Wisconsin.' ;
 		
 		let numInterests = data[i].interests.length;
 		interestsHTML.innerText = 'They have ' + numInterests + ' interests including...'
 	
 		for ( j = 0; j < numInterests; j++) {
+			//for step6
+			let interestItemAnchorHTML = document.createElement('a');
+			interestItemAnchorHTML.className = "interestItem";
+
 			let interestItem = document.createElement("li");
-			interestItem.innerText = data[i].interests[j];
+			interestItemAnchorHTML.innerText = data[i].interests[j];
+
+			interestItem.appendChild(interestItemAnchorHTML);
 			ulInterestsHTML.appendChild(interestItem);
 		}
 	}
@@ -125,9 +98,6 @@ function handleSearch(e) {
 	const name = document.getElementById("search-name").value.trim().toLowerCase();
 	const major = document.getElementById("search-major").value.trim().toLowerCase();
 	const interest = document.getElementById("search-interest").value.trim().toLowerCase();
-
-	// Clear previous results  
-	document.getElementById('students').innerHTML = ''; 
 
 	//perform match
 	fetch("https://cs571.org/api/s24/hw2/students", {
@@ -146,9 +116,12 @@ function handleSearch(e) {
 	return nameMatch && majorMatch && interestMatch;
 	})
 
+	// Clear previous results  
+	document.getElementById('students').innerHTML = ''; 
+
 	buildStudents(matchStudents); 
 
-	//update num of result
+	//Update num of result
 	const num = matchStudents.length;
 	const numStudentElement = document.getElementById('num-results');
 
