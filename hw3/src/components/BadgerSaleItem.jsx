@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 export default function BadgerSaleItem(props) {
     const [quantity, setQuantity] = useState(0);
     const increaseQuantity = () => {
@@ -9,7 +10,10 @@ export default function BadgerSaleItem(props) {
     };
 
     const itemStyle = {
-        backgroundColor: props.featured ? 'red' : 'transparent', // 根据 featured 属性更改背景颜色
+        backgroundColor: props.featured ? '#f5deb3' : 'transparent',
+        border: '1px solid #ccc', 
+        borderRadius: '10px', 
+        padding: '20px', 
     };
 
     return <div style={itemStyle}>
@@ -17,16 +21,16 @@ export default function BadgerSaleItem(props) {
         <p>{props.description}</p>
         <p>{'$' + props.price}</p>
         <div>
-            <button 
+            <Button 
                 className="inline"
                 onClick={decreaseQuantity}
                 disabled={quantity <= 0}
-            >-</button>
+            >-</Button>
             <p className="inline">{quantity}</p>
-            <button 
+            <Button 
                 className="inline"
                 onClick={increaseQuantity}
-            >+</button>
+            >+</Button>
         </div>
     </div>
 }
